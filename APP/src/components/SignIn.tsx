@@ -8,8 +8,7 @@ const SignIn: React.FC = () => {
   const dispatch = useDispatch()
   const [data, setData] = useState({
     email: '',
-    password: '',
-    'check-password': ''
+    password: ''
   })
 
   const inputChange = (event) => {
@@ -23,8 +22,7 @@ const SignIn: React.FC = () => {
     dispatch(userRegister(data))
     setData({
       email: '',
-      password: '',
-      'check-password': ''
+      password: ''
     })
   }
 

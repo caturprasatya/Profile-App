@@ -16,8 +16,6 @@ const Form: React.FC = () => {
     event.preventDefault()
     const { name, value } = event.target
     setData({...data, [name]: value})
-    console.log(data);
-    
   }
 
   const submitForm = (event) => {
