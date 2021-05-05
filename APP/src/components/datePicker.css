@@ -1,0 +1,132 @@
+/* Estrutura */
+.input-container {
+  position: relative;
+}
+
+label {
+  top: 0;
+  left: 0; right: 0;
+  color: #616161;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  font-size: 1rem;
+  cursor: text;
+  transition: .2s ease-in-out;
+  box-sizing: border-box;
+}
+
+.input-name,
+label {
+  width: 100%;
+  height: 3rem;
+  font-size: 1rem;
+}
+
+/* Interation */
+.input-name:valid,
+.input-name:focus {
+  border-bottom: 2px solid #26a69a;  
+}
+
+.input-name:valid + label,
+.input-name:focus + label {
+  color: #26a69a;
+  font-size: .8rem;
+  top: -30px;
+  pointer-events: none;
+}
+
+section {
+  margin: 15px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+  padding: 20px;
+  border-radius: 0 0 2px 2px;
+  background-color: #FFF;
+}
+
+input[type="date"] {
+  /* display:block; */
+  position:relative;
+  padding:1rem 3.5rem 1rem 0.75rem;
+  margin-top: 20px;
+  font-size:1rem;
+  font-family:monospace;
+  width: 85%;
+  text-align: center;
+  margin-left: 35px;
+  margin-right: 25px;
+  
+  border:1px solid #8292a2;
+  border-radius:0.25rem;
+  background:
+    white
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='22' viewBox='0 0 20 22'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23688EBB' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' transform='translate(1 1)'%3E%3Crect width='18' height='18' y='2' rx='2'/%3E%3Cpath d='M13 0L13 4M5 0L5 4M0 8L18 8'/%3E%3C/g%3E%3C/svg%3E")
+    right 1rem
+    center
+    no-repeat;
+  
+  cursor:pointer;
+}
+input[type="date"]:focus {
+  outline:none;
+  /* border-color:#3acfff; */
+  box-shadow:0 0 0 0.25rem rgba(0, 120, 250, 0.1);
+}
+
+::-webkit-datetime-edit,
+::-webkit-datetime-edit-fields-wrapper,
+::-webkit-datetime-edit-month-field:hover,
+::-webkit-datetime-edit-day-field:hover,
+::-webkit-datetime-edit-year-field:hover {
+  background:rgba(0, 120, 250, 0.1);
+}
+::-webkit-datetime-edit-text {
+  opacity:0;
+}
+::-webkit-clear-button,
+::-webkit-inner-spin-button {
+  display:none;
+}
+::-webkit-calendar-picker-indicator {
+  position:absolute;
+  width:2.5rem;
+  height:100%;
+  top:0;
+  right:0;
+  bottom:0;
+  
+  opacity:0;
+  cursor:pointer;
+  
+  color:rgba(0, 120, 250, 1);
+  background:rgba(0, 120, 250, 1);
+ 
+}
+
+input[type="date"]:hover::-webkit-calendar-picker-indicator { opacity:0.05; }
+input[type="date"]:hover::-webkit-calendar-picker-indicator:hover { opacity:0.15; }
+
+.myButton {
+	box-shadow:inset 0px 0px 15px 3px #23395e;
+	background:linear-gradient(to bottom, #2e466e 5%, #415989 100%);
+	background-color:#2e466e;
+	border-radius:17px;
+	border:1px solid #1f2f47;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	padding:6px 13px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #263666;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #415989 5%, #2e466e 100%);
+	background-color:#415989;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
