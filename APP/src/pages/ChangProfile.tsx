@@ -1,7 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import SignUp from '../components/SignUp'
 import Input from  '../components/UploadDatabase'
-import Birthdate from '../components/useDatePicker'
+
 import './Form.css';
 
 const Tab3: React.FC = () => {
@@ -18,9 +17,7 @@ const Tab3: React.FC = () => {
             <IonTitle size="large">Tab 3</IonTitle>
           </IonToolbar>
         </IonHeader>
-        {/* <SignUp /> */}
-        {/* <Input /> */}
-        <Birthdate />
+        <Input />
       </IonContent>
     </IonPage>
   );
