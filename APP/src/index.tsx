@@ -7,6 +7,10 @@ import reportWebVitals from './reportWebVitals';
 
 import { Provider } from 'react-redux'
 import store from '../src/stores/'
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+
+
+defineCustomElements(window);
 
 ReactDOM.render(
   <React.StrictMode>

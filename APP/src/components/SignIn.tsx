@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { userRegister } from '../stores/action'
+import { userLogin } from '../stores/action'
 
 import './Form.css';
 
@@ -19,7 +19,7 @@ const SignIn: React.FC = () => {
 
   const submitForm = (event) => {
     event.preventDefault()
-    dispatch(userRegister(data))
+    dispatch(userLogin(data))
     setData({
       email: '',
       password: ''

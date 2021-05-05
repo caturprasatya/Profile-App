@@ -1,9 +1,15 @@
 import firebase from '../configs/fire'
 const db = firebase.firestore();
 const auth = firebase.auth();
+const database = db.collection('profile')
 
 export const setUserId = (payload) => ({
   type: 'user/id',
+  payload
+})
+
+export const setDataUser = (payload) => ({
+  type: 'user/data',
   payload
 })
 
@@ -32,6 +38,22 @@ export const userLogin =  (payload) => {
     dispatch(setLoading(false))
   }
 }
+
+export const getDataUser =  (payload) => {
+  const { userId } = payload
+  return async (dispatch) => {
+    try {      
+        dispatch(setLoading(true))
+        const data = database.doc(userId).get()
+
+        dispatch(setDataUser(data))
+    } catch (error) {
+      dispatch(setError(error.message))
+    }
+    dispatch(setLoading(false))
+  }
+}
+
 export const userRegister = (payload) => {
   const { email, password } = payload
   return async(dispatch) => {
@@ -63,5 +85,39 @@ export const userRegister = (payload) => {
         console.log('Error adding user to the DB: ', error);
       });
       }
+  }
+}
+
+export const updateData = (payload) => {
+  return async(dispatch) => {
+    const { userId, user } = payload.data
+    const { name, birthdate, data } = payload
+    console.log('gaess');
+    
+    try {
+      await database.doc(userId).set({...user, 
+        name,
+        birthdate })
+
+      dispatch(getDataUser({ data: userId }))
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+export const updateProfile = (payload) => {
+  return async(dispatch) => {
+    const { userId, user } = payload.data
+    const { base64 } = payload
+    
+    try {
+      await database.doc(userId).set({ ...user, avatar: base64 })
+      console.log('boom');
+      
+      dispatch(getDataUser({ data: userId }))
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

@@ -9,7 +9,7 @@ const PHOTO_STORAGE = "photos";
 
 export function usePhotoGallery() {
 
-  const [photos, setPhotos] = useState<Photo[]>([]);
+  const [photo, setPhoto] = useState<Photo[]>([]);
   const { getPhoto } = useCamera();
   const { deleteFile, readFile, writeFile } = useFilesystem();
   const { get, set } = useStorage();
@@ -17,10 +17,10 @@ export function usePhotoGallery() {
   useEffect(() => {
     const loadSaved = async () => {
       const photosString = await get(PHOTO_STORAGE);
-      const photosInStorage = (photosString ? JSON.parse(photosString) : []) as Photo[];
+      const photoInStorage = (photosString ? JSON.parse(photosString) : []) as Photo[];
       // If running on the web...
       if (!isPlatform('hybrid')) {
-        for (let photo of photosInStorage) {
+        for (let photo of photoInStorage) {
           const file = await readFile({
             path: photo.filepath,
             directory: FilesystemDirectory.Data
@@ -29,7 +29,7 @@ export function usePhotoGallery() {
           photo.webviewPath = `data:image/jpeg;base64,${file.data}`;
         }
       }
-      setPhotos(photosInStorage);
+      setPhoto(photoInStorage);
     };
     loadSaved();
   }, [get, readFile]);
@@ -42,9 +42,9 @@ export function usePhotoGallery() {
     });
     const fileName = new Date().getTime() + '.jpeg';
     const savedFileImage = await savePicture(cameraPhoto, fileName);
-    const newPhotos = [savedFileImage, ...photos];
-    setPhotos(newPhotos);
-    set(PHOTO_STORAGE, JSON.stringify(newPhotos));
+    const newPhoto = [savedFileImage];
+    setPhoto(newPhoto);
+    set(PHOTO_STORAGE, JSON.stringify(newPhoto));
   };
 
   const savePicture = async (photo: CameraPhoto, fileName: string): Promise<Photo> => {
@@ -61,7 +61,7 @@ export function usePhotoGallery() {
     const savedFile = await writeFile({
       path: fileName,
       data: base64Data,
-      directory: FilesystemDirectory.Data
+      // directory: FilesystemDirectory.Data
     });
 
     if (isPlatform('hybrid')) {
@@ -84,10 +84,10 @@ export function usePhotoGallery() {
 
   const deletePhoto = async (photo: Photo) => {
     // Remove this photo from the Photos reference data array
-    const newPhotos = photos.filter(p => p.filepath !== photo.filepath);
+    const newPhoto = photo[0]
 
     // Update photos array cache by overwriting the existing photo array
-    set(PHOTO_STORAGE, JSON.stringify(newPhotos));
+    set(PHOTO_STORAGE, JSON.stringify(newPhoto));
 
     // delete photo file from filesystem
     const filename = photo.filepath.substr(photo.filepath.lastIndexOf('/') + 1);
@@ -95,12 +95,12 @@ export function usePhotoGallery() {
       path: filename,
       directory: FilesystemDirectory.Data
     });
-    setPhotos(newPhotos);
+    setPhoto(newPhoto);
   };
 
   return {
     deletePhoto,
-    photos,
+    photo,
     takePhoto
   };
 }
@@ -109,3 +109,4 @@ export interface Photo {
   filepath: string;
   webviewPath?: string;
 }
+

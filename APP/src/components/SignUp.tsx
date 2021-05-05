@@ -21,6 +21,9 @@ const Form: React.FC = () => {
   const submitForm = (event) => {
     event.preventDefault()
     dispatch(userRegister(data))
+    if (data.password !== data['check-password']) {
+      
+    }
     setData({
       email: '',
       password: '',
